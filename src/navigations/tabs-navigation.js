@@ -4,6 +4,7 @@ import ProfileScreen from "../screens/ProfileScreen";
 import Feather from "react-native-vector-icons/Feather";
 import { StyleSheet, Text } from "react-native";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import LoginScreen from "../screens/LoginScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -34,7 +35,7 @@ function TabsNavigation() {
           tabBarIcon: ({ focused, color, size }) => (
             <Feather name="heart" color={focused ? "#024950" : "#808080"} size={size} />
           ),
-        }} name="Wishlists" component={ProfileScreen} />
+        }} name="Wishlists" component={HomeScreen} />
       <Tab.Screen   options={{
           tabBarLabel: ({ focused, color, size }) => (
             <Text style={[styles.tabBarLabel,{ color: focused ? "#024950" : "#808080" }]}>Bookings</Text>
@@ -58,7 +59,7 @@ function TabsNavigation() {
           tabBarIcon: ({ focused, color, size }) => (
             <Feather name="user" color={focused ? "#024950" : "#808080"} size={size} />
           ),
-        }} name="Profile" component={ProfileScreen} />
+        }} name="Profile" component={LoginScreen} />
     </Tab.Navigator>
   );
 }

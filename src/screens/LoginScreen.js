@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Text, View ,TextInput,TouchableOpacity} from "react-native";
+import { Text, View, TextInput, TouchableOpacity,Image } from "react-native";
 import globalStyles from "../styles/globalStyles";
 import FormHandler from "../utils/FormHandler";
 import { loginValidate } from "../utils/validation";
 import Feather from "react-native-vector-icons/Feather";
+import LOGO from "../../assets/logo.png";
 
 function LoginScreen({ navigation }) {
 
@@ -18,12 +19,15 @@ function LoginScreen({ navigation }) {
   } = FormHandler(login, loginValidate);
 
   function login() {
-
     navigation.navigate("Main");
   }
 
   return (
     <View style={globalStyles.container}>
+      <View style={{flexDirection:"row",marginVertical:20,alignItems:"center"}}>
+        <Image source={LOGO} style={{width: 100, height: 100}} />
+        <Text style={{fontFamily: "Poppins-SemiBold", fontSize: 24, color: "#000", marginTop: 10,marginLeft:16}}>Bodimate</Text>
+      </View>
       <Text style={globalStyles.textLabel}>Username</Text>
       <View
         accessible={true}

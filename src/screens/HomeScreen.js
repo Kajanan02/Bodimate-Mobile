@@ -1,6 +1,8 @@
-import React, {useState} from "react";
+import React, { useEffect, useState } from "react";
 import {Text, View, TouchableOpacity, StyleSheet, Image, ScrollView, Dimensions, StatusBar} from "react-native";
 import Feather from "react-native-vector-icons/Feather";
+import BodingCard from "../components/boding-card";
+import { useRoute } from "@react-navigation/native";
 
 const WIDTH = Dimensions.get('window').width;
 
@@ -77,36 +79,21 @@ for (let i = 1; i <= 15; i++) {
 }
 
 const HomeScreen = ({navigation}) => {
+    const route = useRoute()
+
     const renderBoardingCards = () => {
         return boardingPlaces.map((place) => (
-            <View key={place.id} style={styles.card}>
-                <ImageSlider images={place.images} navigation={navigation}/>
-                <TouchableOpacity
-                    style={styles.cardTouchable}
-                    onPress={() => navigation.navigate("BoardingDetails", {place})}
-                    activeOpacity={1}
-                >
-                    <View style={styles.description}>
-                        <View style={styles.rating}>
-                            <Feather name="star" size={14} color="#000000"/>
-                            <Text style={styles.ratingText}>{place.rating.toFixed(1)} ({place.reviews} reviews)</Text>
-                        </View>
-                        <View style={styles.location}>
-                            <Text style={styles.locationText}>{place.location}</Text>
-                            {place.verified && (
-                                <Image
-                                    source={{uri: "https://w7.pngwing.com/pngs/865/941/png-transparent-google-verified-hd-logo-thumbnail.png"}}
-                                    style={styles.verifiedIcon}
-                                />
-                            )}
-                        </View>
-                        <Text style={styles.university}>{place.university}</Text>
-                        <Text style={styles.rent}>Rs. {place.rent} (Monthly)</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
+            <BodingCard key={place.id} place={place} navigation={navigation} path={route.name}/>
         ));
+
     };
+
+    console.log("route",route.name);
+
+
+    useEffect(() => {
+
+    }, [])
 
     return (
         <View style={styles.container}>
@@ -130,73 +117,7 @@ const HomeScreen = ({navigation}) => {
     );
 }
 
-const ImageSlider = ({images, navigation}) => {
-    const [imgActive, setImgActive] = useState(0);
 
-    const onChange = (nativeEvent) => {
-        if (nativeEvent) {
-            const slide = Math.ceil(nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width);
-            if (slide !== imgActive) {
-                setImgActive(slide);
-            }
-        }
-    };
-
-    const renderDots = () => {
-        const maxDots = 5;
-        const totalImages = images.length;
-        let dots = [];
-
-        let start = imgActive < Math.floor(maxDots / 2) ? 0 : imgActive - Math.floor(maxDots / 2);
-        if (start > totalImages - maxDots) {
-            start = totalImages - maxDots;
-        }
-        start = Math.max(0, start);
-
-        for (let i = start; i < start + maxDots && i < totalImages; i++) {
-            dots.push(
-                <Text
-                    key={i}
-                    style={imgActive === i ? styles.dotActive : styles.dot}
-                >
-                    ●
-                </Text>
-            );
-        }
-
-        return dots;
-    };
-
-    return (
-        <View style={styles.imageContainer}>
-            <ScrollView
-                onScroll={({nativeEvent}) => onChange(nativeEvent)}
-                showsHorizontalScrollIndicator={false}
-                pagingEnabled
-                horizontal
-                style={styles.imageSlider}
-            >
-                {images.map((image, index) => (
-                    <Image
-                        key={index}
-                        resizeMode="cover"
-                        style={styles.image}
-                        source={{uri: image}}
-                    />
-                ))}
-            </ScrollView>
-            <TouchableOpacity
-                style={styles.favoriteIcon}
-                onPress={() => navigation.navigate("Login")}
-            >
-                <Feather name="heart" size={20} color="#ffffff"/>
-            </TouchableOpacity>
-            <View style={styles.wrapDot}>
-                {renderDots()}
-            </View>
-        </View>
-    );
-};
 
 const styles = StyleSheet.create({
     container: {
