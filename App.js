@@ -6,6 +6,12 @@ import LoginScreen from "./src/screens/LoginScreen";
 import HomeScreen from "./src/screens/HomeScreen";
 import BoardingDetailsScreen from "./src/screens/BoardingDetailsScreen";
 import TabsNavigation from "./src/navigations/tabs-navigation";
+import PersonalInfoScreen from "./src/screens/PersonalInfoScreen";
+import LoginSecurityScreen from "./src/screens/LoginSecurityScreen";
+import PaymentsPayoutsScreen from "./src/screens/PaymentsPayoutsScreen";
+import PaymentMethodsScreen from "./src/screens/PaymentMethodsScreen";
+import YourPaymentsScreen from "./src/screens/YourPaymentsScreen";
+import NotificationsSettingsScreen from "./src/screens/NotificationsSettingsScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +24,12 @@ function App() {
         <Stack.Screen name="Main" component={TabsNavigation} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="BoardingDetails" component={BoardingDetailsScreen} />
+        <Stack.Screen name="PersonalInfo" component={PersonalInfoScreen} />
+        <Stack.Screen name="LoginSecurity" component={LoginSecurityScreen} />
+        <Stack.Screen name="PaymentsPayouts" component={PaymentsPayoutsScreen} />
+        <Stack.Screen name="PaymentMethods" component={PaymentMethodsScreen} />
+        <Stack.Screen name="YourPayments" component={YourPaymentsScreen} />
+        <Stack.Screen name="NotificationsSettings" component={NotificationsSettingsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

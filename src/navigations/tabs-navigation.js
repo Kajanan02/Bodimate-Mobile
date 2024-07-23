@@ -59,7 +59,7 @@ function TabsNavigation() {
           tabBarIcon: ({ focused, color, size }) => (
             <Feather name="user" color={focused ? "#024950" : "#808080"} size={size} />
           ),
-        }} name="Profile" component={LoginScreen} />
+        }} name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );
 }
