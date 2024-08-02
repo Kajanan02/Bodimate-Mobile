@@ -12,6 +12,7 @@ import PaymentsPayoutsScreen from "./src/screens/PaymentsPayoutsScreen";
 import PaymentMethodsScreen from "./src/screens/PaymentMethodsScreen";
 import YourPaymentsScreen from "./src/screens/YourPaymentsScreen";
 import NotificationsSettingsScreen from "./src/screens/NotificationsSettingsScreen";
+import ConfirmAndPayScreen from "./src/screens/ConfirmAndPayScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +25,7 @@ function App() {
         <Stack.Screen name="Main" component={TabsNavigation} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="BoardingDetails" component={BoardingDetailsScreen} />
+        <Stack.Screen name="ConfirmAndPay" component={ConfirmAndPayScreen} />
         <Stack.Screen name="PersonalInfo" component={PersonalInfoScreen} />
         <Stack.Screen name="LoginSecurity" component={LoginSecurityScreen} />
         <Stack.Screen name="PaymentsPayouts" component={PaymentsPayoutsScreen} />

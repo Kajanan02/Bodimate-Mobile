@@ -321,7 +321,10 @@ const BoardingDetailsScreen = ({route, navigation}) => {
                     </Text>
                 </View>
                 <View style={styles.bottomRight}>
-                    <TouchableOpacity style={styles.reserveButton}>
+                    <TouchableOpacity
+                        style={styles.reserveButton}
+                        onPress={() => navigation.navigate('ConfirmAndPay', { place })}
+                    >
                         <Text style={styles.reserveButtonText}>
                             Reserve
                         </Text>
