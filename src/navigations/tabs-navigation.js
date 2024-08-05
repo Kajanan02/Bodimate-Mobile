@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/HomeScreen";
 import ProfileScreen from "../screens/ProfileScreen";
+import InboxScreen from "../screens/InboxScreen";
 import Feather from "react-native-vector-icons/Feather";
 import { StyleSheet, Text } from "react-native";
 import AntDesign from "react-native-vector-icons/AntDesign";
@@ -51,7 +52,7 @@ function TabsNavigation() {
           tabBarIcon: ({ focused, color, size }) => (
             <Feather name="inbox" color={focused ? "#024950" : "#808080"} size={size} />
           ),
-        }} name="Inbox" component={ProfileScreen} />
+        }} name="Inbox" component={InboxScreen} />
       <Tab.Screen   options={{
           tabBarLabel: ({ focused, color, size }) => (
             <Text style={[styles.tabBarLabel,{ color: focused ? "#024950" : "#808080" }]}>Profile</Text>
