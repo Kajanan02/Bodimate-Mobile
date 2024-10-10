@@ -1,7 +1,7 @@
-import React from "react";
-import { StyleSheet } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React, {useEffect} from "react";
+import {StyleSheet} from "react-native";
+import {NavigationContainer} from "@react-navigation/native";
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginScreen from "./src/screens/LoginScreen";
 import HomeScreen from "./src/screens/HomeScreen";
 import BoardingDetailsScreen from "./src/screens/BoardingDetailsScreen";
@@ -15,49 +15,63 @@ import NotificationsSettingsScreen from "./src/screens/NotificationsSettingsScre
 import ConfirmAndPayScreen from "./src/screens/ConfirmAndPayScreen";
 import ChatScreen from "./src/screens/ChatScreen";
 import OwnerBoardingDetailsScreen from "./src/screens/OwnerBoardingDetailsScreen";
+import Toast from "react-native-toast-message";
+import {Provider} from "react-redux";
+import store from "./src/redux/store";
 
 const Stack = createNativeStackNavigator();
 
 function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{
-        headerShown: false,
-      }}>
-        <Stack.Screen name="Main" component={TabsNavigation} />
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="BoardingDetails" component={BoardingDetailsScreen} />
-        <Stack.Screen name="Chat" component={ChatScreen} />
-        <Stack.Screen name="ConfirmAndPay" component={ConfirmAndPayScreen} />
-        <Stack.Screen name="PersonalInfo" component={PersonalInfoScreen} />
-        <Stack.Screen name="LoginSecurity" component={LoginSecurityScreen} />
-        <Stack.Screen name="PaymentsPayouts" component={PaymentsPayoutsScreen} />
-        <Stack.Screen name="PaymentMethods" component={PaymentMethodsScreen} />
-        <Stack.Screen name="YourPayments" component={YourPaymentsScreen} />
-        <Stack.Screen name="NotificationsSettings" component={NotificationsSettingsScreen} />
-        <Stack.Screen name="OwnerBoardingDetails" component={OwnerBoardingDetailsScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+
+
+    useEffect(() => {
+        console.log("App.js")
+    }, []);
+
+
+    return (
+        <Provider store={store}>
+            <NavigationContainer>
+                <Stack.Navigator screenOptions={{
+                    headerShown: false,
+                }}>
+                    <Stack.Screen name="Main" component={TabsNavigation}/>
+                    <Stack.Screen name="Login" component={LoginScreen}/>
+                    <Stack.Screen name="BoardingDetails" component={BoardingDetailsScreen}/>
+                    <Stack.Screen name="Chat" component={ChatScreen}/>
+                    <Stack.Screen name="ConfirmAndPay" component={ConfirmAndPayScreen}/>
+                    <Stack.Screen name="PersonalInfo" component={PersonalInfoScreen}/>
+                    <Stack.Screen name="LoginSecurity" component={LoginSecurityScreen}/>
+                    <Stack.Screen name="PaymentsPayouts" component={PaymentsPayoutsScreen}/>
+                    <Stack.Screen name="PaymentMethods" component={PaymentMethodsScreen}/>
+                    <Stack.Screen name="YourPayments" component={YourPaymentsScreen}/>
+                    <Stack.Screen name="NotificationsSettings" component={NotificationsSettingsScreen}/>
+                    <Stack.Screen name="OwnerBoardingDetails" component={OwnerBoardingDetailsScreen}/>
+                </Stack.Navigator>
+                <Toast/>
+            </NavigationContainer>
+        </Provider>
+
+    );
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: "600",
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: "400",
-  },
-  highlight: {
-    fontWeight: "700",
-  },
+    sectionContainer: {
+        marginTop: 32,
+        paddingHorizontal: 24,
+    },
+    sectionTitle: {
+        fontSize: 24,
+        fontWeight: "600",
+    },
+    sectionDescription: {
+        marginTop: 8,
+        fontSize: 18,
+        fontWeight: "400",
+    },
+    highlight: {
+        fontWeight: "700",
+    },
 });
 
 export default App;

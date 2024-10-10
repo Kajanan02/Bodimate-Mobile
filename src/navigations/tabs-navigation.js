@@ -7,10 +7,27 @@ import Feather from "react-native-vector-icons/Feather";
 import { StyleSheet, Text } from "react-native";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import LoginScreen from "../screens/LoginScreen";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
+import {getData} from "../utils/utils";
+import {userDataUpdate} from "../redux/features/userDataSlice";
 
 const Tab = createBottomTabNavigator();
 
 function TabsNavigation() {
+
+
+    const dispatch = useDispatch();
+
+
+    useEffect(() => {
+        getData("user").then((res) => {
+            console.log(res, "res")
+            let userData = JSON.parse(res);
+            dispatch(userDataUpdate(userData))
+        })
+    }, []);
+
     return (
         <Tab.Navigator sceneContainerStyle={{backgroundColor: "#fff"}} screenOptions={({route}) => ({
             headerShown: false,

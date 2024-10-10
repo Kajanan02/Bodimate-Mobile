@@ -13,9 +13,15 @@ import {
 } from "react-native";
 import Feather from "react-native-vector-icons/Feather";
 import {launchCamera, launchImageLibrary} from "react-native-image-picker";
-import {useNavigation} from "@react-navigation/native";
+import {CommonActions, useNavigation} from "@react-navigation/native";
+import {useSelector} from "react-redux";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ProfileScreen = () => {
+    const user = useSelector(state => state.userData?.user);
+
+    console.log(user, "user")
+
     const [modalVisible, setModalVisible] = useState(false);
     const [profileImage, setProfileImage] = useState(null);
     const [translateY] = useState(new Animated.Value(0));
@@ -95,8 +101,8 @@ const ProfileScreen = () => {
                         )}
                     </TouchableOpacity>
                     <View style={styles.profileInfo}>
-                        <Text style={styles.firstName}>John Doe</Text>
-                        <TouchableOpacity onPress={() => navigation.navigate('PersonalInfoScreen')}>
+                        <Text style={styles.firstName}>{user.username || "Guest"}</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate(user.username ? 'PersonalInfo' :"Login")}>
                             <Text style={styles.descriptionText}>Show Profile</Text>
                         </TouchableOpacity>
                     </View>
@@ -104,36 +110,73 @@ const ProfileScreen = () => {
                 <View style={styles.horizontalLine}/>
 
                 <Text style={styles.settingsHeading}>Settings</Text>
-                <TouchableOpacity style={styles.settingsRow} onPress={() => navigation.navigate('PersonalInfo')}>
-                    <Feather name="user" size={24} color="black" style={styles.settingsIcon}/>
-                    <Text style={styles.settingsText}>Profile information</Text>
-                    <Feather name="chevron-right" size={24} color="black" style={styles.arrowIcon}/>
-                </TouchableOpacity>
-                <View style={styles.horizontalSubLine}/>
-                <TouchableOpacity style={styles.settingsRow} onPress={() => navigation.navigate('LoginSecurity')}>
-                    <Feather name="shield" size={24} color="black" style={styles.settingsIcon}/>
-                    <Text style={styles.settingsText}>Login & security</Text>
-                    <Feather name="chevron-right" size={24} color="black" style={styles.arrowIcon}/>
-                </TouchableOpacity>
-                <View style={styles.horizontalSubLine}/>
-                <TouchableOpacity style={styles.settingsRow} onPress={() => navigation.navigate('PaymentsPayouts')}>
-                    <Feather name="credit-card" size={24} color="black" style={styles.settingsIcon}/>
-                    <Text style={styles.settingsText}>Payments and payouts</Text>
-                    <Feather name="chevron-right" size={24} color="black" style={styles.arrowIcon}/>
-                </TouchableOpacity>
-                <View style={styles.horizontalSubLine}/>
-                <TouchableOpacity style={styles.settingsRow}
-                                  onPress={() => navigation.navigate('NotificationsSettings')}>
-                    <Feather name="bell" size={24} color="black" style={styles.settingsIcon}/>
-                    <Text style={styles.settingsText}>Notifications</Text>
-                    <Feather name="chevron-right" size={24} color="black" style={styles.arrowIcon}/>
-                </TouchableOpacity>
-                <View style={styles.horizontalSubLine}/>
+                {!user.username ? <View>
+                        <TouchableOpacity style={styles.settingsRow} onPress={() => navigation.navigate('Login')}>
+                            <Feather name="user" size={24} color="black" style={styles.settingsIcon}/>
+                            <Text style={styles.settingsText}>Login</Text>
+                            <Feather name="chevron-right" size={24} color="black" style={styles.arrowIcon}/>
+                        </TouchableOpacity>
+                        <View style={styles.horizontalSubLine}/>
+                        <TouchableOpacity style={styles.settingsRow} onPress={() => navigation.navigate('Login')}>
+                            <Feather name="user" size={24} color="black" style={styles.settingsIcon}/>
+                            <Text style={styles.settingsText}>Sign Up</Text>
+                            <Feather name="chevron-right" size={24} color="black" style={styles.arrowIcon}/>
+                        </TouchableOpacity>
+                        <View style={styles.horizontalSubLine}/>
+                    </View> :
+                    <View>
+                        <TouchableOpacity style={styles.settingsRow}
+                                          onPress={() => navigation.navigate('PersonalInfo')}>
+                            <Feather name="user" size={24} color="black" style={styles.settingsIcon}/>
+                            <Text style={styles.settingsText}>Profile information</Text>
+                            <Feather name="chevron-right" size={24} color="black" style={styles.arrowIcon}/>
+                        </TouchableOpacity>
+                        <View style={styles.horizontalSubLine}/>
+                        <TouchableOpacity style={styles.settingsRow}
+                                          onPress={() => navigation.navigate('LoginSecurity')}>
+                            <Feather name="shield" size={24} color="black" style={styles.settingsIcon}/>
+                            <Text style={styles.settingsText}>Login & security</Text>
+                            <Feather name="chevron-right" size={24} color="black" style={styles.arrowIcon}/>
+                        </TouchableOpacity>
+                        <View style={styles.horizontalSubLine}/>
+                        <TouchableOpacity style={styles.settingsRow}
+                                          onPress={() => navigation.navigate('PaymentsPayouts')}>
+                            <Feather name="credit-card" size={24} color="black" style={styles.settingsIcon}/>
+                            <Text style={styles.settingsText}>Payments and payouts</Text>
+                            <Feather name="chevron-right" size={24} color="black" style={styles.arrowIcon}/>
+                        </TouchableOpacity>
+                        <View style={styles.horizontalSubLine}/>
 
-                <TouchableOpacity style={styles.addBoardingButton}
-                                  onPress={() => navigation.navigate('OwnerBoardingDetails')}>
-                    <Text style={styles.addBoardingButtonText}>Add Boarding</Text>
-                </TouchableOpacity>
+                        <TouchableOpacity style={styles.settingsRow}
+                                          onPress={() => navigation.navigate('NotificationsSettings')}>
+                            <Feather name="bell" size={24} color="black" style={styles.settingsIcon}/>
+                            <Text style={styles.settingsText}>Notifications</Text>
+                            <Feather name="chevron-right" size={24} color="black" style={styles.arrowIcon}/>
+                        </TouchableOpacity>
+                        <View style={styles.horizontalSubLine}/>
+                        <TouchableOpacity style={styles.settingsRow}
+                                          onPress={() => {
+                                              AsyncStorage.clear();
+                                              navigation.dispatch(
+                                                  CommonActions.reset({
+                                                      index: 0,
+                                                      routes: [{ name: 'Login' }],
+                                                  })
+                                              );
+                                          }}>
+                            <Feather name="bell" size={24} color="black" style={styles.settingsIcon}/>
+                            <Text style={styles.settingsText}>Logout</Text>
+                            <Feather name="chevron-right" size={24} color="black" style={styles.arrowIcon}/>
+                        </TouchableOpacity>
+                        <View style={styles.horizontalSubLine}/>
+
+                        <TouchableOpacity style={styles.addBoardingButton}
+                                          onPress={() => navigation.navigate('OwnerBoardingDetails')}>
+                            <Text style={styles.addBoardingButtonText}>Add Boarding</Text>
+                        </TouchableOpacity>
+                    </View>
+                }
+
 
                 <Modal
                     animationType="slide"
