@@ -14,6 +14,7 @@ import YourPaymentsScreen from "./src/screens/YourPaymentsScreen";
 import NotificationsSettingsScreen from "./src/screens/NotificationsSettingsScreen";
 import ConfirmAndPayScreen from "./src/screens/ConfirmAndPayScreen";
 import ChatScreen from "./src/screens/ChatScreen";
+import OwnerBoardingDetailsScreen from "./src/screens/OwnerBoardingDetailsScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -34,6 +35,7 @@ function App() {
         <Stack.Screen name="PaymentMethods" component={PaymentMethodsScreen} />
         <Stack.Screen name="YourPayments" component={YourPaymentsScreen} />
         <Stack.Screen name="NotificationsSettings" component={NotificationsSettingsScreen} />
+        <Stack.Screen name="OwnerBoardingDetails" component={OwnerBoardingDetailsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

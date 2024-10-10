@@ -128,6 +128,12 @@ const ProfileScreen = () => {
                     <Text style={styles.settingsText}>Notifications</Text>
                     <Feather name="chevron-right" size={24} color="black" style={styles.arrowIcon}/>
                 </TouchableOpacity>
+                <View style={styles.horizontalSubLine}/>
+
+                <TouchableOpacity style={styles.addBoardingButton}
+                                  onPress={() => navigation.navigate('OwnerBoardingDetails')}>
+                    <Text style={styles.addBoardingButtonText}>Add Boarding</Text>
+                </TouchableOpacity>
 
                 <Modal
                     animationType="slide"
@@ -324,6 +330,18 @@ const styles = StyleSheet.create({
     },
     removeButton: {
         backgroundColor: "#ff0000",
+    },
+    addBoardingButton: {
+        backgroundColor: '#024950',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 10,
+        alignSelf: 'flex-start',
+        marginTop: 30,
+    },
+    addBoardingButtonText: {
+        color: '#ffffff',
+        fontFamily: 'Poppins-Regular',
     },
 });
 
