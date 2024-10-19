@@ -81,51 +81,51 @@ const BoardingDetailsScreen = ({route, navigation}) => {
             navigation.navigate('BoardingReviews');
         };
 
-        return (
-            <View style={styles.reviewCard}>
-                <View style={styles.reviewCardHeader}>
-                    <View style={styles.reviewStars}>
-                        {Array.from({length: 5}, (_, i) => (
-                            <Feather
-                                key={i}
-                                name="star"
-                                size={12}
-                                color={i < Math.round(review.rating) ? "#FFD700" : "#d5d5d5"}
-                            />
-                        ))}
-                    </View>
-                    <Text style={styles.reviewTime}>{review.time}</Text>
-                </View>
-                <View style={styles.reviewTextContainer}>
-                    <Text
-                        style={styles.reviewText}
-                        numberOfLines={showMore ? undefined : 4}
-                        onTextLayout={handleTextLayout}
-                    >
-                        {review.reviewText}
-                    </Text>
-                    {showMoreButtonVisible && (
-                        <TouchableOpacity onPress={navigateToReviews}>
-                            <Text style={styles.showMoreButton}>
-                                Show more
-                            </Text>
-                        </TouchableOpacity>
-                    )}
-                </View>
-                <View style={styles.reviewerInfo}>
-                    <Image
-                        source={review.reviewerProfile}
-                        style={styles.reviewerProfileImage}
-                    />
-                    <View style={styles.reviewerDetails}>
-                        <Text style={styles.reviewerName}>{review.reviewerName}</Text>
-                        <Text style={styles.reviewerExperience}>
-                            {review.reviewerExperience}
-                        </Text>
-                    </View>
-                </View>
-            </View>
-        );
+        // return (
+            // <View style={styles.reviewCard}>
+            //     <View style={styles.reviewCardHeader}>
+            //         <View style={styles.reviewStars}>
+            //             {Array.from({length: 5}, (_, i) => (
+            //                 <Feather
+            //                     key={i}
+            //                     name="star"
+            //                     size={12}
+            //                     color={i < Math.round(review.rating) ? "#FFD700" : "#d5d5d5"}
+            //                 />
+            //             ))}
+            //         </View>
+            //         <Text style={styles.reviewTime}>{review.time}</Text>
+            //     </View>
+            //     <View style={styles.reviewTextContainer}>
+            //         <Text
+            //             style={styles.reviewText}
+            //             numberOfLines={showMore ? undefined : 4}
+            //             onTextLayout={handleTextLayout}
+            //         >
+            //             {review.reviewText}
+            //         </Text>
+            //         {showMoreButtonVisible && (
+            //             <TouchableOpacity onPress={navigateToReviews}>
+            //                 <Text style={styles.showMoreButton}>
+            //                     Show more
+            //                 </Text>
+            //             </TouchableOpacity>
+            //         )}
+            //     </View>
+            //     <View style={styles.reviewerInfo}>
+            //         <Image
+            //             source={review.reviewerProfile}
+            //             style={styles.reviewerProfileImage}
+            //         />
+            //         <View style={styles.reviewerDetails}>
+            //             <Text style={styles.reviewerName}>{review.reviewerName}</Text>
+            //             <Text style={styles.reviewerExperience}>
+            //                 {review.reviewerExperience}
+            //             </Text>
+            //         </View>
+            //     </View>
+            // </View>
+        // );
     };
 
     return (
@@ -141,7 +141,7 @@ const BoardingDetailsScreen = ({route, navigation}) => {
                         horizontal
                         style={styles.imageSlider}
                     >
-                        {place.images.map((image, index) => (
+                        {place.boardingPic.map((image, index) => (
                             <Image
                                 key={index}
                                 resizeMode="cover"
@@ -165,7 +165,7 @@ const BoardingDetailsScreen = ({route, navigation}) => {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.imageCount}>
-                        <Text style={styles.imageCountText}>{imgActive + 1}/{place.images.length}</Text>
+                        <Text style={styles.imageCountText}>{imgActive + 1}/{place.boardingPic.length}</Text>
                     </View>
                 </View>
                 <View style={styles.detailsContainer}>
@@ -173,40 +173,41 @@ const BoardingDetailsScreen = ({route, navigation}) => {
                         <Text style={styles.boardingHeadText}>{place.boardingName}</Text>
                     </View>
                     <View style={styles.location}>
-                        <Text style={styles.locationText}>{place.location}</Text>
-                        {place.verified && (
+                        <Text style={styles.locationText}>{place.city}</Text>
+                        {place.isVerified && (
                             <Image
                                 source={{uri: "https://w7.pngwing.com/pngs/865/941/png-transparent-google-verified-hd-logo-thumbnail.png"}}
                                 style={styles.verifiedIcon}
                             />
                         )}
                     </View>
-                    <Text style={styles.university}>{place.university}</Text>
+                    <Text style={styles.university}>{place.nearestUniversity}</Text>
                     <View style={styles.details}>
-                        <Text style={styles.detailText}>{place.guests} guests · {place.bedrooms} bedrooms
-                            · {place.beds} beds · {place.bathrooms} private bathroom</Text>
-                    </View>
-                    <View style={styles.rating}>
-                        <Feather name="star" size={16} color="#000"/>
-                        <Text style={[styles.ratingText, styles.ratingValue]}>
-                            {place.rating.toFixed(1)} (
-                        </Text>
-                        <TouchableOpacity onPress={() => {
-                        }} style={styles.reviewButtonContainer}>
-                            <Text style={styles.reviewButton}>{place.reviews} reviews</Text>
-                        </TouchableOpacity>
-                        <Text style={styles.ratingText}>
-                            )
+                        <Text style={styles.detailText}>{place.membersCount} guests · {place.noOfRooms} Rooms
+                            {/*· {place.beds} beds · {place.bathrooms} private bathroom*/}
                         </Text>
                     </View>
+                    {/*<View style={styles.rating}>*/}
+                    {/*    <Feather name="star" size={16} color="#000"/>*/}
+                    {/*    <Text style={[styles.ratingText, styles.ratingValue]}>*/}
+                    {/*        {place.rating.toFixed(1)} (*/}
+                    {/*    </Text>*/}
+                    {/*    <TouchableOpacity onPress={() => {*/}
+                    {/*    }} style={styles.reviewButtonContainer}>*/}
+                    {/*        <Text style={styles.reviewButton}>{place.reviews} reviews</Text>*/}
+                    {/*    </TouchableOpacity>*/}
+                    {/*    <Text style={styles.ratingText}>*/}
+                    {/*        )*/}
+                    {/*    </Text>*/}
+                    {/*</View>*/}
                     <View style={styles.horizontalLine}/>
                     <View style={styles.ownerContainer}>
                         <View style={styles.profileContainer}>
                             <Image source={BoardingOwner} style={styles.ownerProfile}/>
                         </View>
                         <View style={styles.detailTextContainer}>
-                            <Text style={styles.detailHeadText}>Hosted by {place.ownerName}</Text>
-                            <Text style={styles.detailSubText}>{place.ownerExperience} years hosting</Text>
+                            <Text style={styles.detailHeadText}>Hosted by {place.boardingOwner}</Text>
+                            {/*<Text style={styles.detailSubText}>{place.ownerExperience} years hosting</Text>*/}
                         </View>
                     </View>
                     <View style={styles.horizontalLine}/>
@@ -215,8 +216,8 @@ const BoardingDetailsScreen = ({route, navigation}) => {
                             <Feather name="map-pin" size={25} color="#000"/>
                         </View>
                         <View style={styles.detailTextContainer}>
-                            <Text style={styles.detailHeadText}>{place.location}</Text>
-                            <Text style={styles.detailSubText}>{place.locationDetails}</Text>
+                            <Text style={styles.detailHeadText}>{place.district}</Text>
+                            <Text style={styles.detailSubText}>{place.province}</Text>
                         </View>
                     </View>
                     <View style={styles.detailContainer}>
@@ -225,7 +226,7 @@ const BoardingDetailsScreen = ({route, navigation}) => {
                         </View>
                         <View style={styles.detailTextContainer}>
                             <Text style={styles.detailHeadText}>Distance to University</Text>
-                            <Text style={styles.detailSubText}>{place.distanceDetails}</Text>
+                            <Text style={styles.detailSubText}>{place.distance}</Text>
                         </View>
                     </View>
                     <View style={styles.detailContainer}>
@@ -234,7 +235,7 @@ const BoardingDetailsScreen = ({route, navigation}) => {
                         </View>
                         <View style={styles.detailTextContainer}>
                             <Text style={styles.detailHeadText}>Room Types</Text>
-                            <Text style={styles.detailSubText}>{place.roomDetails}</Text>
+                            <Text style={styles.detailSubText}>{place.boardingType}</Text>
                         </View>
                     </View>
                     <View style={styles.detailContainer}>
@@ -243,7 +244,7 @@ const BoardingDetailsScreen = ({route, navigation}) => {
                         </View>
                         <View style={styles.detailTextContainer}>
                             <Text style={styles.detailHeadText}>Amenities</Text>
-                            <Text style={styles.detailSubText}>{place.amenitiesDetails}</Text>
+                            <Text style={styles.detailSubText}>{place.facilities}</Text>
                         </View>
                     </View>
                     <View style={styles.detailContainer}>
@@ -252,7 +253,7 @@ const BoardingDetailsScreen = ({route, navigation}) => {
                         </View>
                         <View style={styles.detailTextContainer}>
                             <Text style={styles.detailHeadText}>Price</Text>
-                            <Text style={styles.detailSubText}>{place.priceDetails}</Text>
+                            <Text style={styles.detailSubText}>{place.pricePerMonth}</Text>
                         </View>
                     </View>
                     <View style={styles.detailContainer}>
@@ -261,7 +262,7 @@ const BoardingDetailsScreen = ({route, navigation}) => {
                         </View>
                         <View style={styles.detailTextContainer}>
                             <Text style={styles.detailHeadText}>Transportation Options</Text>
-                            <Text style={styles.detailSubText}>{place.transportationDetails}</Text>
+                            <Text style={styles.detailSubText}>{place?.transportationDetails}</Text>
                         </View>
                     </View>
                     <View style={styles.detailContainer}>
@@ -270,37 +271,37 @@ const BoardingDetailsScreen = ({route, navigation}) => {
                         </View>
                         <View style={styles.detailTextContainer}>
                             <Text style={styles.detailHeadText}>Security</Text>
-                            <Text style={styles.detailSubText}>{place.securityDetails}</Text>
+                            <Text style={styles.detailSubText}>{place?.securityDetails}</Text>
                         </View>
                     </View>
-                    <View style={styles.horizontalLine}/>
-                    <View style={styles.reviewsContainer}>
-                        <Text style={styles.reviewsHeading}>Reviews</Text>
-                        {place.reviewDetails.map((review, index) => (
-                            <View key={index} style={styles.reviewRow}>
-                                <Text style={styles.reviewType}>{review.type}</Text>
-                                <View style={styles.reviewBarContainer}>
-                                    <View style={styles.reviewBarBackground}>
-                                        <View style={[styles.reviewBarSelected, {width: `${review.rating * 20}%`}]}/>
-                                    </View>
-                                </View>
-                                <Text style={styles.reviewRating}>{review.rating.toFixed(1)}</Text>
-                            </View>
-                        ))}
-                    </View>
+                    {/*<View style={styles.horizontalLine}/>*/}
+                    {/*<View style={styles.reviewsContainer}>*/}
+                    {/*    <Text style={styles.reviewsHeading}>Reviews</Text>*/}
+                    {/*    {place.reviewDetails.map((review, index) => (*/}
+                    {/*        <View key={index} style={styles.reviewRow}>*/}
+                    {/*            <Text style={styles.reviewType}>{review.type}</Text>*/}
+                    {/*            <View style={styles.reviewBarContainer}>*/}
+                    {/*                <View style={styles.reviewBarBackground}>*/}
+                    {/*                    <View style={[styles.reviewBarSelected, {width: `${review.rating * 20}%`}]}/>*/}
+                    {/*                </View>*/}
+                    {/*            </View>*/}
+                    {/*            <Text style={styles.reviewRating}>{review.rating.toFixed(1)}</Text>*/}
+                    {/*        </View>*/}
+                    {/*    ))}*/}
+                    {/*</View>*/}
                 </View>
-                <View style={styles.horizontalLine}/>
-                <View style={styles.reviewContainer}>
-                    <Text style={styles.sectionHeader}>{place.reviews} Reviews</Text>
-                    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                        {reviewData.map((review, index) => (
-                            <ReviewCard key={index} review={review}/>
-                        ))}
-                    </ScrollView>
-                    <TouchableOpacity onPress={() => navigation.navigate('BoardingReviews')}>
-                        <Text style={styles.showAllReviewsButton}>Show all {place.reviews} reviews</Text>
-                    </TouchableOpacity>
-                </View>
+                {/*<View style={styles.horizontalLine}/>*/}
+                {/*<View style={styles.reviewContainer}>*/}
+                {/*    <Text style={styles.sectionHeader}>{place.reviews} Reviews</Text>*/}
+                {/*    <ScrollView horizontal showsHorizontalScrollIndicator={false}>*/}
+                {/*        {reviewData.map((review, index) => (*/}
+                {/*            <ReviewCard key={index} review={review}/>*/}
+                {/*        ))}*/}
+                {/*    </ScrollView>*/}
+                {/*    <TouchableOpacity onPress={() => navigation.navigate('BoardingReviews')}>*/}
+                {/*        <Text style={styles.showAllReviewsButton}>Show all {place.reviews} reviews</Text>*/}
+                {/*    </TouchableOpacity>*/}
+                {/*</View>*/}
                 <View style={styles.detailsContainer}>
                     <View style={styles.horizontalLine}/>
                     <View style={styles.locationContainer}>
@@ -314,7 +315,7 @@ const BoardingDetailsScreen = ({route, navigation}) => {
             <View style={styles.bottomSection}>
                 <View style={styles.bottomLeft}>
                     <Text style={styles.bottomRentText}>
-                        Rs. {place.rent}
+                        Rs. {place.pricePerMonth}
                     </Text>
                     <Text style={styles.bottomText}>
                         per guest

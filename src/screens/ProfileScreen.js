@@ -102,7 +102,7 @@ const ProfileScreen = () => {
                     </TouchableOpacity>
                     <View style={styles.profileInfo}>
                         <Text style={styles.firstName}>{user.username || "Guest"}</Text>
-                        <TouchableOpacity onPress={() => navigation.navigate(user.username ? 'PersonalInfo' :"Login")}>
+                        <TouchableOpacity onPress={() => navigation.navigate(user.username ? 'PersonalInfo' : "Login")}>
                             <Text style={styles.descriptionText}>Show Profile</Text>
                         </TouchableOpacity>
                     </View>
@@ -117,12 +117,16 @@ const ProfileScreen = () => {
                             <Feather name="chevron-right" size={24} color="black" style={styles.arrowIcon}/>
                         </TouchableOpacity>
                         <View style={styles.horizontalSubLine}/>
-                        <TouchableOpacity style={styles.settingsRow} onPress={() => navigation.navigate('Login')}>
+                        <TouchableOpacity style={styles.settingsRow} onPress={() => navigation.navigate('SignUp')}>
                             <Feather name="user" size={24} color="black" style={styles.settingsIcon}/>
                             <Text style={styles.settingsText}>Sign Up</Text>
                             <Feather name="chevron-right" size={24} color="black" style={styles.arrowIcon}/>
                         </TouchableOpacity>
                         <View style={styles.horizontalSubLine}/>
+                        <TouchableOpacity style={styles.addBoardingButton}
+                                          onPress={() => navigation.navigate('BodimateYourHome')}>
+                            <Text style={styles.addBoardingButtonText}>Bodimate Your Home</Text>
+                        </TouchableOpacity>
                     </View> :
                     <View>
                         <TouchableOpacity style={styles.settingsRow}
@@ -160,7 +164,7 @@ const ProfileScreen = () => {
                                               navigation.dispatch(
                                                   CommonActions.reset({
                                                       index: 0,
-                                                      routes: [{ name: 'Login' }],
+                                                      routes: [{name: 'Login'}],
                                                   })
                                               );
                                           }}>
