@@ -213,3 +213,35 @@ export function boardingDetailsValidate(values) {
 
   return errors;
 }
+
+export function CardDetailsValidate(values) {
+  let errors = {};
+
+  if (!values.cardNumber) {
+    errors.cardNumber = 'Card Number is required';
+  } else if (!/^(?:4[0-9]{15}|5[1-5][0-9]{14}|3[47][0-9]{13})$/.test(values.cardNumber) &&
+      !/^\d{16}$/.test(values.cardNumber) && !/^\d{15}$/.test(values.cardNumber)) {
+    errors.cardNumber = 'Invalid Card Number. Must be 16 digits (Visa/MasterCard) or 15 digits (Amex)';
+  }
+
+  if (!values.expiryDate) {
+    errors.expiryDate = 'Expiry date is required';
+  } else if (!/^(0[1-9]|1[0-2])\/([0-9]{2})$/.test(values.expiryDate)) {
+    errors.expiryDate = 'Invalid expiry date. Use MM/YY format';
+  } else {
+    const [month, year] = values.expiryDate.split('/').map(num => parseInt(num, 10));
+    const expiry = new Date(2000 + year, month - 1);
+    const now = new Date();
+    if (expiry < now) {
+      errors.expiryDate = 'Card has expired';
+    }
+  }
+
+  if (!values.cvv) {
+    errors.cvv = 'CVV is required';
+  } else if (!/^\d{3}$/.test(values.cvv) && !/^\d{4}$/.test(values.cvv)) {
+    errors.cvv = 'CVV must be 3 digits (Visa/MasterCard) or 4 digits (Amex)';
+  }
+
+  return errors;
+}
