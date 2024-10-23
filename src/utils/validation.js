@@ -4,9 +4,104 @@ export function loginValidate(values) {
 
   if (!values.email) {
     errors.email = 'Email is required';
+  } else if (!/\S+@\S+\.\S+/.test(values.email)) {
+    errors.email = 'Invalid email address';
   }
+
   if (!values.password) {
     errors.password = 'Password is required';
+  }
+
+  return errors;
+}
+
+export function signupValidate(values) {
+  let errors = {};
+
+  if (!values.firstName) {
+    errors.firstName = 'First Name is required';
+  }
+
+  if (!values.lastName) {
+    errors.lastName = 'Last Name is required';
+  }
+
+  if (!values.username) {
+    errors.username = 'Username is required';
+  }
+
+  if (!values.email) {
+    errors.email = 'Email is required';
+  } else if (!/\S+@\S+\.\S+/.test(values.email)) {
+    errors.email = 'Invalid email address';
+  }
+
+  if (!values.password) {
+    errors.password = 'Password is required';
+  }
+
+  if (!values.contactNo) {
+    errors.contactNo = 'Contact number is required';
+  } else if (!/^\d{10}$/.test(values.contactNo)) {
+    errors.contactNo = 'Invalid contact number';
+  }
+
+  if (!values.gender) {
+    errors.gender = 'Gender is required';
+  }
+
+  if (!values.address) {
+    errors.address = 'Address is required';
+  }
+
+  if (!values.nicNo) {
+    errors.nicNo = 'NIC number is required';
+  }
+
+  return errors;
+}
+
+export function bodimateYourHomeValidate(values) {
+  let errors = {};
+
+  if (!values.firstName) {
+    errors.firstName = 'First Name is required';
+  }
+
+  if (!values.lastName) {
+    errors.lastName = 'Last Name is required';
+  }
+
+  if (!values.username) {
+    errors.username = 'Username is required';
+  }
+
+  if (!values.email) {
+    errors.email = 'Email is required';
+  } else if (!/\S+@\S+\.\S+/.test(values.email)) {
+    errors.email = 'Invalid email address';
+  }
+
+  if (!values.password) {
+    errors.password = 'Password is required';
+  }
+
+  if (!values.contactNo) {
+    errors.contactNo = 'Contact number is required';
+  } else if (!/^\d{10}$/.test(values.contactNo)) {
+    errors.contactNo = 'Invalid contact number';
+  }
+
+  if (!values.gender) {
+    errors.gender = 'Gender is required';
+  }
+
+  if (!values.address) {
+    errors.address = 'Address is required';
+  }
+
+  if (!values.nicNo) {
+    errors.nicNo = 'NIC number is required';
   }
 
   return errors;

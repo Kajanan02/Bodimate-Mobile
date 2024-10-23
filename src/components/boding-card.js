@@ -49,7 +49,7 @@ const ImageSlider = ({images, navigation}) => {
         horizontal
         style={styles.imageSlider}
       >
-        {images.map((image, index) => (
+        {images.length > 0 && images?.map((image, index) => (
           <Image
             key={index}
             resizeMode="cover"
@@ -72,30 +72,33 @@ const ImageSlider = ({images, navigation}) => {
 };
 
 function BodingCard({ place,navigation,path }) {
+
+  console.log(place)
+
   return (
-    <View key={place.id} style={styles.card}>
-      <ImageSlider images={place.images} navigation={navigation}/>
+    <View key={place._id} style={styles.card}>
+      <ImageSlider images={place.boardingPic} navigation={navigation}/>
       <TouchableOpacity
         style={styles.cardTouchable}
         onPress={() => navigation.navigate("BoardingDetails", {place})}
         activeOpacity={1}
       >
         <View style={styles.description}>
-          <View style={styles.rating}>
-            <Feather name="star" size={14} color="#000000"/>
-            <Text style={styles.ratingText}>{place.rating.toFixed(1)} ({place.reviews} reviews)</Text>
-          </View>
+          {/*<View style={styles.rating}>*/}
+          {/*  <Feather name="star" size={14} color="#000000"/>*/}
+          {/*  <Text style={styles.ratingText}>{place.rating.toFixed(1)} ({place.reviews} reviews)</Text>*/}
+          {/*</View>*/}
           <View style={styles.location}>
-            <Text style={styles.locationText}>{place.location}</Text>
-            {place.verified && (
+            <Text style={styles.locationText}>{place.city}</Text>
+            {place.isVerified && (
               <Image
                 source={{uri: "https://w7.pngwing.com/pngs/865/941/png-transparent-google-verified-hd-logo-thumbnail.png"}}
                 style={styles.verifiedIcon}
               />
             )}
           </View>
-          <Text style={styles.university}>{place.university}</Text>
-          <Text style={styles.rent}>Rs. {place.rent} (Monthly)</Text>
+          <Text style={styles.university}>{place.nearestUniversity}</Text>
+          <Text style={styles.rent}>Rs. {place.pricePerMonth} (Monthly)</Text>
         </View>
       </TouchableOpacity>
     </View>

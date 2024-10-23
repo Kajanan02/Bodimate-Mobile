@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import {Text, View, TouchableOpacity, StyleSheet, Image, ScrollView, Dimensions, StatusBar} from "react-native";
 import Feather from "react-native-vector-icons/Feather";
 import BodingCard from "../components/boding-card";
-import { useRoute } from "@react-navigation/native";
+import {useRoute} from "@react-navigation/native";
+import axios from "axios";
+import {BASE_URL} from "../utils/Enum";
 
 const WIDTH = Dimensions.get('window').width;
 
@@ -82,17 +84,32 @@ const HomeScreen = ({navigation}) => {
     const route = useRoute()
 
     const renderBoardingCards = () => {
-        return boardingPlaces.map((place) => (
-            <BodingCard key={place.id} place={place} navigation={navigation} path={route.name}/>
+        return listingsList.map((place) => (
+            <BodingCard key={place._id} place={place} navigation={navigation} path={route.name}/>
         ));
 
     };
 
-    console.log("route",route.name);
+    console.log("route", route.name);
 
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const [listingsList, setListingsList] = useState([]);
 
     useEffect(() => {
-
+        setIsLoading(true);
+        setError(null);
+        axios.get(`${BASE_URL}/boardings/getAllBoarding`)
+            .then((res) => {
+                setListingsList(res.data);
+            })
+            .catch((err) => {
+                console.error(err);
+                setError('Failed to fetch data');
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
     }, [])
 
     return (

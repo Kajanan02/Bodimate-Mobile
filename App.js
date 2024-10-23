@@ -18,6 +18,8 @@ import OwnerBoardingDetailsScreen from "./src/screens/OwnerBoardingDetailsScreen
 import Toast from "react-native-toast-message";
 import {Provider} from "react-redux";
 import store from "./src/redux/store";
+import SignUpScreen from "./src/screens/SignUpScreen";
+import BodimateYourHomeScreen from "./src/screens/BodimateYourHomeScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -37,6 +39,7 @@ function App() {
                 }}>
                     <Stack.Screen name="Main" component={TabsNavigation}/>
                     <Stack.Screen name="Login" component={LoginScreen}/>
+                    <Stack.Screen name="SignUp" component={SignUpScreen}/>
                     <Stack.Screen name="BoardingDetails" component={BoardingDetailsScreen}/>
                     <Stack.Screen name="Chat" component={ChatScreen}/>
                     <Stack.Screen name="ConfirmAndPay" component={ConfirmAndPayScreen}/>
@@ -47,6 +50,7 @@ function App() {
                     <Stack.Screen name="YourPayments" component={YourPaymentsScreen}/>
                     <Stack.Screen name="NotificationsSettings" component={NotificationsSettingsScreen}/>
                     <Stack.Screen name="OwnerBoardingDetails" component={OwnerBoardingDetailsScreen}/>
+                    <Stack.Screen name="BodimateYourHome" component={BodimateYourHomeScreen}/>
                 </Stack.Navigator>
                 <Toast/>
             </NavigationContainer>
