@@ -21,6 +21,7 @@ import store from "./src/redux/store";
 import SignUpScreen from "./src/screens/SignUpScreen";
 import BodimateYourHomeScreen from "./src/screens/BodimateYourHomeScreen";
 import PayHereScreen from "./src/screens/PayHereScreen";
+import SignUpMethodScreen from "./src/screens/SignUpMethodScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -41,6 +42,7 @@ function App() {
                     <Stack.Screen name="Main" component={TabsNavigation}/>
                     <Stack.Screen name="Login" component={LoginScreen}/>
                     <Stack.Screen name="SignUp" component={SignUpScreen}/>
+                    <Stack.Screen name="SignUpMethod" component={SignUpMethodScreen}/>
                     <Stack.Screen name="BoardingDetails" component={BoardingDetailsScreen}/>
                     <Stack.Screen name="Chat" component={ChatScreen}/>
                     <Stack.Screen name="ConfirmAndPay" component={ConfirmAndPayScreen}/>
