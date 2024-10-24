@@ -11,16 +11,25 @@ function ConfirmAndPayScreen({navigation, route}) {
     const [startPickerVisible, setStartPickerVisible] = useState(false);
     const [endPickerVisible, setEndPickerVisible] = useState(false);
     const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
-    const [guestCount, setGuestCount] = useState(1);
+    const [membersCount, setMembersCount] = useState(1);
 
     const currentDate = new Date();
     const oneYearFromNow = new Date();
     oneYearFromNow.setFullYear(currentDate.getFullYear() + 1);
 
-    const handleSaveGuestCount = (count) => {
-        setGuestCount(count);
+    const handleSaveMembersCount = (count) => {
+        setMembersCount(count);
         setBottomSheetVisible(false);
     };
+
+    const imageUrl = place?.images?.[0] || 'defaultImageUri';
+    const boardingName = place?.boardingName || 'No boarding name';
+    const city = place?.city ? `${place.city.lat}, ${place.city.lng}` : 'Location not available';
+    const nearestUniversity = place?.nearestUniversity || 'University not available';
+    const pricePerMonth = place?.pricePerMonth || 0;
+    const total = parseFloat(pricePerMonth) + (parseFloat(pricePerMonth) / 10);
+    // const rating = place?.rating?.toFixed(1) || '0.0';
+    // const reviews = place?.reviews || 0;
 
     return (
         <ScrollView style={styles.container}>
@@ -30,41 +39,35 @@ function ConfirmAndPayScreen({navigation, route}) {
                 </TouchableOpacity>
                 <Text style={styles.headerText}>Confirm and pay</Text>
             </View>
+
             <View style={styles.commonContainer}>
                 <View style={styles.detailsContainer}>
                     <View style={styles.imageContainer}>
-                        <Image
-                            source={{uri: place.images[0]}}
-                            style={styles.image}
-                        />
+                        <Image source={{uri: imageUrl}} style={styles.image}/>
                     </View>
                     <View style={styles.infoContainer}>
                         <View style={styles.boardingHead}>
-                            <Text style={styles.boardingHeadText}>{place.boardingName}</Text>
+                            <Text style={styles.boardingHeadText}>{boardingName}</Text>
                         </View>
                         <View style={styles.location}>
-                            <Text style={styles.locationText}>{place.location}</Text>
-                            {place.verified && (
+                            <Text style={styles.locationText}>{city}</Text>
+                            {place?.verified && (
                                 <Image
                                     source={{uri: "https://w7.pngwing.com/pngs/865/941/png-transparent-google-verified-hd-logo-thumbnail.png"}}
                                     style={styles.verifiedIcon}
                                 />
                             )}
                         </View>
-                        <Text style={styles.university}>{place.university}</Text>
-                        <View style={styles.rating}>
-                            <Feather name="star" size={16} color="#000"/>
-                            <Text style={[styles.ratingText, styles.ratingValue]}>
-                                {place.rating.toFixed(1)} (
-                            </Text>
-                            <TouchableOpacity onPress={() => {
-                            }} style={styles.reviewButtonContainer}>
-                                <Text style={styles.reviewButton}>{place.reviews} reviews</Text>
-                            </TouchableOpacity>
-                            <Text style={styles.ratingText}>
-                                )
-                            </Text>
-                        </View>
+                        <Text style={styles.university}>{nearestUniversity}</Text>
+                        {/*<View style={styles.rating}>*/}
+                        {/*    <Feather name="star" size={16} color="#000"/>*/}
+                        {/*    <Text style={[styles.ratingText, styles.ratingValue]}>{rating} (</Text>*/}
+                        {/*    <TouchableOpacity onPress={() => {*/}
+                        {/*    }} style={styles.reviewButtonContainer}>*/}
+                        {/*        <Text style={styles.reviewButton}>{reviews} reviews</Text>*/}
+                        {/*    </TouchableOpacity>*/}
+                        {/*    <Text style={styles.ratingText}>)</Text>*/}
+                        {/*</View>*/}
                     </View>
                 </View>
             </View>
@@ -130,15 +133,12 @@ function ConfirmAndPayScreen({navigation, route}) {
                 </View>
                 <View style={styles.row}>
                     <Text style={styles.subHeading}>Guests</Text>
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => setBottomSheetVisible(true)}
-                    >
+                    <TouchableOpacity style={styles.button} onPress={() => setBottomSheetVisible(true)}>
                         <Text style={styles.buttonText}>Edit</Text>
                     </TouchableOpacity>
                 </View>
                 <Text style={styles.secondLine}>
-                    {guestCount} guest{guestCount > 1 ? 's' : ''}
+                    {membersCount} guest{membersCount > 1 ? 's' : ''}
                 </Text>
             </View>
             <View style={styles.sectionDivider}/>
@@ -146,25 +146,33 @@ function ConfirmAndPayScreen({navigation, route}) {
                 <Text style={styles.sectionHeading}>Price Details</Text>
                 <View style={styles.row}>
                     <Text style={styles.subText}>Monthly charge</Text>
-                    <Text style={styles.price}>Rs. {place.rent}</Text>
+                    <Text style={styles.price}>Rs. {pricePerMonth}</Text>
                 </View>
                 <View style={styles.row}>
                     <Text style={styles.subText}>Bodimate service fee</Text>
-                    <Text style={styles.price}>Rs. {place.rent / 10}</Text>
+                    <Text style={styles.price}>Rs. {pricePerMonth / 10}</Text>
                 </View>
                 <View style={styles.horizontalLine}/>
                 <View style={styles.row}>
-                    <Text style={styles.subTotalText}>Total(Rs.)</Text>
-                    <Text style={styles.price}>Rs. {place.rent + (place.rent / 10)}</Text>
+                    <Text style={styles.subTotalText}>Total</Text>
+                    <Text style={styles.price}>Rs. {total.toFixed(2)}</Text>
                 </View>
-                <TouchableOpacity style={styles.confirmButton}>
+                <View style={styles.horizontalLine}/>
+                <View style={styles.row}>
+                    <Text style={styles.subTotalText}>Total For {membersCount} Guests</Text>
+                    <Text style={styles.price}>Rs. {(Number(total.toFixed(2)) * membersCount).toFixed(2)}</Text>
+                </View>
+                <TouchableOpacity
+                    style={styles.confirmButton}
+                    onPress={() => navigation.navigate('PayHere', { totalAmount: (Number(total.toFixed(2)) * membersCount).toFixed(2) })}>
                     <Text style={styles.confirmButtonText}>Confirm and pay</Text>
                 </TouchableOpacity>
+
             </View>
             <AddGuestBottomSheet
                 visible={bottomSheetVisible}
                 onClose={() => setBottomSheetVisible(false)}
-                onSave={handleSaveGuestCount}
+                onSave={handleSaveMembersCount}
             />
         </ScrollView>
     );

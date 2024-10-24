@@ -20,6 +20,7 @@ import {Provider} from "react-redux";
 import store from "./src/redux/store";
 import SignUpScreen from "./src/screens/SignUpScreen";
 import BodimateYourHomeScreen from "./src/screens/BodimateYourHomeScreen";
+import PayHereScreen from "./src/screens/PayHereScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -43,6 +44,7 @@ function App() {
                     <Stack.Screen name="BoardingDetails" component={BoardingDetailsScreen}/>
                     <Stack.Screen name="Chat" component={ChatScreen}/>
                     <Stack.Screen name="ConfirmAndPay" component={ConfirmAndPayScreen}/>
+                    <Stack.Screen name="PayHere" component={PayHereScreen}/>
                     <Stack.Screen name="PersonalInfo" component={PersonalInfoScreen}/>
                     <Stack.Screen name="LoginSecurity" component={LoginSecurityScreen}/>
                     <Stack.Screen name="PaymentsPayouts" component={PaymentsPayoutsScreen}/>
